@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api'; // Adjust this to match your backend URL
+const API_BASE_URL = 'http://localhost:3000/api';
 
 export const dockerApi = {
   async analyzeImage(imageName) {
@@ -129,6 +129,19 @@ export const dockerApi = {
       return await response.json();
     } catch (error) {
       console.error('Error getting local images:', error);
+      throw error;
+    }
+  },
+
+  async getContainers() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers`);
+      if (!response.ok) {
+        throw new Error(`Failed to get containers: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error getting containers:', error);
       throw error;
     }
   },

@@ -24,6 +24,7 @@ export default {
         'fadeIn': 'fadeIn 0.5s ease-in-out',
         'slideIn': 'slideIn 0.5s ease-in-out',
         'pulse-slow': 'pulse 3s infinite',
+        'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
       keyframes: {
         fadeIn: {
@@ -33,6 +34,12 @@ export default {
         slideIn: {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        ping: {
+          '75%, 100%': {
+            transform: 'scale(1.5)',
+            opacity: '0',
+          },
         },
       },
       scale: {

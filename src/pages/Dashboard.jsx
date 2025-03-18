@@ -142,7 +142,7 @@ export default function Dashboard() {
         <div className="card">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-medium text-gray-900">Layer Analysis</h2>
-            <button className="text-sm text-primary-600 hover:text-primary-700">View Details</button>
+            <button className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">View Details</button>
           </div>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -197,7 +197,7 @@ export default function Dashboard() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className="text-sm text-gray-600">{issue.count} issues found</span>
-                  <button className="text-sm text-primary-600 hover:text-primary-700">Fix</button>
+                  <button className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Fix</button>
                 </div>
               </div>
             ))}
@@ -238,7 +238,7 @@ export default function Dashboard() {
                     <p className="text-sm text-yellow-700">Consider using a smaller base image like alpine</p>
                   </div>
                 </div>
-                <button className="text-sm text-yellow-800 hover:text-yellow-900">Optimize</button>
+                <button className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Optimize</button>
               </div>
             </div>
 
@@ -255,7 +255,7 @@ export default function Dashboard() {
                     <p className="text-sm text-blue-700">30MB of files haven't been accessed in 30 days</p>
                   </div>
                 </div>
-                <button className="text-sm text-blue-800 hover:text-blue-900">Clean</button>
+                <button className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">Clean</button>
               </div>
             </div>
           </div>

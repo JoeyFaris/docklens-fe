@@ -1,31 +1,53 @@
 import { useState } from 'react';
-import { PlayIcon, StopIcon, TrashIcon } from '@heroicons/react/24/outline';
-
-const mockContainers = [
-  {
-    id: 'abc123',
-    name: 'nginx-proxy',
-    image: 'nginx:latest',
-    status: 'running',
-    cpu: '0.5%',
-    memory: '128MB',
-    ports: '80:80',
-    created: '2 days ago',
-  },
-  {
-    id: 'def456',
-    name: 'mongodb',
-    image: 'mongo:latest',
-    status: 'stopped',
-    cpu: '0%',
-    memory: '0MB',
-    ports: '27017:27017',
-    created: '5 days ago',
-  },
-];
+import { useQuery } from '@tanstack/react-query';
+import { PlayIcon, StopIcon, TrashIcon, CubeIcon } from '@heroicons/react/24/outline';
+import { dockerApi } from '../api/dockerApi';
+import AnalyzeImageModal from './AnalyzeImageModal';
 
 export default function Containers() {
   const [selectedContainer, setSelectedContainer] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [hasPermission, setHasPermission] = useState(false);
+  
+  const { data: containers = [], isLoading, error, refetch } = useQuery({
+    queryKey: ['containers'],
+    queryFn: () => dockerApi.getContainers(),
+    refetchInterval: 5000, // Refresh every 5 seconds
+    enabled: hasPermission, // Only start fetching after permission is granted
+  });
+
+  const handlePermissionGranted = () => {
+    setHasPermission(true);
+    setIsModalOpen(false);
+    refetch(); // Immediately fetch containers after permission is granted
+  };
+
+  // Show the permission modal if we don't have permission yet
+  if (!hasPermission) {
+    return (
+      <AnalyzeImageModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onPermissionGranted={handlePermissionGranted}
+      />
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-red-500">Error loading containers: {error.message}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-fadeIn">
@@ -54,7 +76,7 @@ export default function Containers() {
                         Status
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Resource Usage
+                        Image
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Ports
@@ -68,11 +90,11 @@ export default function Containers() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {mockContainers.map((container) => (
+                    {containers.map((container) => (
                       <tr
-                        key={container.id}
+                        key={container.Id}
                         className={`${
-                          selectedContainer?.id === container.id ? 'bg-primary-50' : ''
+                          selectedContainer?.Id === container.Id ? 'bg-primary-50' : ''
                         } hover:bg-gray-50 cursor-pointer transition-colors duration-150`}
                         onClick={() => setSelectedContainer(container)}
                       >
@@ -82,58 +104,43 @@ export default function Containers() {
                               <CubeIcon className="h-6 w-6 text-gray-500" />
                             </div>
                             <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">{container.name}</div>
-                              <div className="text-sm text-gray-500">{container.image}</div>
+                              <div className="text-sm font-medium text-gray-900">
+                                {container.Names[0].replace('/', '')}
+                              </div>
+                              <div className="text-sm text-gray-500">{container.Id.slice(0, 12)}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
                             className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                              container.status === 'running'
+                              container.State === 'running'
                                 ? 'bg-green-100 text-green-800'
                                 : 'bg-gray-100 text-gray-800'
                             }`}
                           >
                             <span className={`h-2 w-2 mr-2 rounded-full ${
-                              container.status === 'running' ? 'bg-green-400' : 'bg-gray-400'
+                              container.State === 'running' ? 'bg-green-400' : 'bg-gray-400'
                             }`}></span>
-                            {container.status}
+                            {container.State}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="space-y-1">
-                            <div className="flex items-center">
-                              <span className="text-xs text-gray-500 w-12">CPU:</span>
-                              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-blue-500 rounded-full transition-all duration-300"
-                                  style={{ width: container.cpu.replace('%', '') + '%' }}
-                                ></div>
-                              </div>
-                              <span className="ml-2 text-xs text-gray-500">{container.cpu}</span>
-                            </div>
-                            <div className="flex items-center">
-                              <span className="text-xs text-gray-500 w-12">RAM:</span>
-                              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-indigo-500 rounded-full transition-all duration-300"
-                                  style={{ width: '50%' }}
-                                ></div>
-                              </div>
-                              <span className="ml-2 text-xs text-gray-500">{container.memory}</span>
-                            </div>
-                          </div>
+                          <div className="text-sm text-gray-900">{container.Image}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <span className="px-2 py-1 bg-gray-100 rounded text-xs">{container.ports}</span>
+                          {container.Ports.map((port, index) => (
+                            <span key={index} className="px-2 py-1 bg-gray-100 rounded text-xs mr-2">
+                              {port.PrivatePort}/{port.Type}
+                            </span>
+                          ))}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {container.created}
+                          {new Date(container.Created * 1000).toLocaleString()}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div className="flex items-center space-x-3 justify-end">
-                            {container.status === 'running' ? (
+                            {container.State === 'running' ? (
                               <button className="text-red-600 hover:text-red-900 transition-colors duration-150">
                                 <StopIcon className="h-5 w-5" />
                               </button>
