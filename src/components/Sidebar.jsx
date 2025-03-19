@@ -4,6 +4,9 @@ import {
   CubeIcon,
   PhotoIcon,
   Cog6ToothIcon,
+  ShieldCheckIcon,
+  DocumentDuplicateIcon,
+  SparklesIcon,
 } from '@heroicons/react/24/outline';
 
 export default function Sidebar() {
@@ -21,6 +24,15 @@ export default function Sidebar() {
       isActive ? 'text-white' : 'text-gray-400 group-hover:text-blue-500'
     }`;
   };
+
+  const navigation = [
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: location.pathname === '/dashboard', premium: false },
+    { name: 'Images', href: '/images', icon: DocumentDuplicateIcon, current: location.pathname === '/images', premium: false },
+    { name: 'Containers', href: '/containers', icon: CubeIcon, current: location.pathname === '/containers', premium: false },
+    { name: 'Premium Features', href: '/premium', icon: SparklesIcon, current: location.pathname === '/premium', premium: false, highlight: true },
+    { name: 'Security Scans', href: '/premium', icon: ShieldCheckIcon, current: location.pathname.startsWith('/security-scan'), premium: true },
+    { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: location.pathname === '/settings', premium: false },
+  ];
 
   return (
     <div className="flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen shadow-xl">
@@ -89,7 +101,7 @@ export default function Sidebar() {
           </div>
           <div className="transform transition-transform duration-200 group-hover:scale-105">
             <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-              DockScan
+              DockLens
             </h1>
             <p className="text-xs text-gray-500">Container Analytics</p>
           </div>
@@ -97,22 +109,24 @@ export default function Sidebar() {
       </div>
       <nav className="flex-1 p-4">
         <div className="flex flex-col space-y-2">
-          <Link to="/" className={getLinkClasses('/')}>
-            <HomeIcon className={getIconClasses(location.pathname === '/')} />
-            Dashboard
-          </Link>
-          <Link to="/containers" className={getLinkClasses('/containers')}>
-            <CubeIcon className={getIconClasses(location.pathname === '/containers')} />
-            Containers
-          </Link>
-          <Link to="/images" className={getLinkClasses('/images')}>
-            <PhotoIcon className={getIconClasses(location.pathname === '/images')} />
-            Images
-          </Link>
-          <Link to="/settings" className={getLinkClasses('/settings')}>
-            <Cog6ToothIcon className={getIconClasses(location.pathname === '/settings')} />
-            Settings
-          </Link>
+          {navigation.map((item) => (
+            <Link 
+              key={item.name} 
+              to={item.href} 
+              className={`${getLinkClasses(item.href)} ${item.highlight ? 'relative overflow-hidden' : ''}`}
+            >
+              <item.icon className={getIconClasses(item.current)} />
+              <span className="flex-1">{item.name}</span>
+              {item.premium && (
+                <span className="ml-2 px-1.5 py-0.5 text-xs font-medium rounded bg-amber-100 text-amber-800">
+                  Premium
+                </span>
+              )}
+              {item.highlight && (
+                <span className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-100 to-blue-50 opacity-50"></span>
+              )}
+            </Link>
+          ))}
         </div>
       </nav>
       <div className="p-4 border-t border-gray-200 bg-gradient-to-t from-gray-50 to-white">

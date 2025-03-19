@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TrashIcon, MagnifyingGlassIcon, ArrowPathIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import PullImageModal from '../components/PullImageModal';
+import SecurityScanButton from '../components/SecurityScanButton';
 
 const mockImages = [
   {
@@ -118,14 +119,12 @@ export default function Images() {
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10">
                               <div className="h-10 w-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                                <svg className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                                </svg>
+                                <img src={`https://www.gravatar.com/avatar/${image.id}?s=40&d=identicon`} alt="" className="h-8 w-8" />
                               </div>
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">{image.name}</div>
-                              <div className="text-sm text-gray-500">{image.id.substring(7, 19)}</div>
+                              <div className="text-sm text-gray-500">{image.tag}</div>
                             </div>
                           </div>
                         </td>
@@ -156,38 +155,49 @@ export default function Images() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {image.vulnerabilities > 0 ? (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                              {image.vulnerabilities} issues
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                              Secure
-                            </span>
-                          )}
+                          <div className="flex items-center">
+                            {image.vulnerabilities > 0 ? (
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                {image.vulnerabilities} issues
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Secure
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {image.created}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <div className="flex items-center space-x-3 justify-end">
+                          <div className="flex items-center justify-end space-x-2">
+                            <SecurityScanButton 
+                              imageId={`${image.name}:${image.tag}`} 
+                              buttonText="Quick Scan"
+                              useModal={true}
+                            />
+                            <SecurityScanButton 
+                              imageId={`${image.name}:${image.tag}`} 
+                              buttonText="Full Scan"
+                              variant="secondary"
+                              useModal={false}
+                            />
                             <button
-                              onClick={(e) => {
-                                e.stopPropagation();
+                              onClick={() => {
+                                setSelectedImage(image);
                                 setShowAnalysis(true);
                               }}
-                              className="text-primary-600 hover:text-primary-900"
+                              className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
                             >
-                              <ChartBarIcon className="h-5 w-5" />
+                              <ChartBarIcon className="h-4 w-4 mr-1" />
+                              Analyze
                             </button>
                             <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                // Handle delete
-                              }}
-                              className="text-red-600 hover:text-red-900"
+                              className="px-3 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors flex items-center"
                             >
-                              <TrashIcon className="h-5 w-5" />
+                              <TrashIcon className="h-4 w-4 mr-1" />
+                              Remove
                             </button>
                           </div>
                         </td>

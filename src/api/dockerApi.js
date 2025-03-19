@@ -145,4 +145,57 @@ export const dockerApi = {
       throw error;
     }
   },
+
+  async startSecurityScan(imageId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/analysis/security-scan/${encodeURIComponent(imageId)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        
+        if (response.status === 404) {
+          throw new Error('Image not found. Please make sure the image exists locally.');
+        } else if (response.status === 409) {
+          throw new Error('Scan already in progress for this image.');
+        } else if (response.status === 500) {
+          throw new Error('Server error occurred while starting scan.');
+        } else {
+          throw new Error(errorData.message || `Failed to start security scan: ${response.statusText}`);
+        }
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error starting security scan:', error);
+      throw error;
+    }
+  },
+
+  async checkSecurityScanStatus(scanId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/analysis/security-scan/status/${encodeURIComponent(scanId)}`);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        
+        if (response.status === 404) {
+          throw new Error('Scan not found. The scan ID may be invalid or the scan has been deleted.');
+        } else if (response.status === 500) {
+          throw new Error('Server error occurred while checking scan status.');
+        } else {
+          throw new Error(errorData.message || `Failed to check scan status: ${response.statusText}`);
+        }
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error checking security scan status:', error);
+      throw error;
+    }
+  },
 }; 
