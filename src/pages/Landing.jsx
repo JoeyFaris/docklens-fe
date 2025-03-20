@@ -81,19 +81,29 @@ export default function Landing() {
         
         <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 relative">
           <header className="flex items-center justify-between mb-16 max-w-7xl mx-auto">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-600 rounded-lg shadow-glow">
-                <svg className="h-8 w-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="4" y="4" width="16" height="16" className="stroke-current" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M4 12H20" className="stroke-current" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 2" />
-                  <circle cx="12" cy="12" r="2" className="fill-current" />
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl shadow-glow transform hover:scale-105 transition-all duration-300 relative">
+                <div className="absolute inset-0 bg-blue-400 rounded-xl opacity-20 animate-pulse"></div>
+                <svg className="h-8 w-8 text-white filter drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                    <animate attributeName="stroke-dasharray" from="0 100" to="100 100" dur="1.5s" fill="freeze" />
+                  </path>
                 </svg>
               </div>
               <div>
-                <h1 className="text-2xl font-bold tracking-tight">DockLens</h1>
-                <p className="text-blue-400 text-sm">Container Analytics</p>
+                <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">DockLens</h1>
+                <p className="text-blue-400 text-sm font-medium tracking-wide">Container Analytics</p>
               </div>
             </div>
+            <a
+              href="/dashboard"
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-all duration-300 shadow-blue hover:shadow-blue-lg transform hover:translate-y-[-2px] text-white flex items-center"
+            >
+              Dashboard
+              <svg className="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </a>
           </header>
 
           <div className={`max-w-7xl mx-auto ${animatedElements.hero ? 'animate-fade-in-up' : 'opacity-0'}`}>

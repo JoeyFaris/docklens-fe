@@ -38,71 +38,16 @@ export default function Sidebar() {
     <div className="flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen shadow-xl">
       <div className="p-6 border-b border-gray-200 bg-gradient-to-b from-white to-gray-50">
         <Link to="/" className="flex items-center space-x-3 group">
-          <div className="relative transform transition-transform duration-200 group-hover:scale-105">
-            <svg className="h-10 w-10 text-blue-600" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* Main Container */}
-              <path 
-                d="M8 8H28V28H8V8Z" 
-                className="stroke-current" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-              {/* Scanning line animation */}
-              <path 
-                d="M7 18H29" 
-                className="stroke-current" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                strokeDasharray="2 2"
-              />
-              {/* Top scanning bracket */}
-              <path 
-                d="M12 6H10C8.89543 6 8 6.89543 8 8V10" 
-                className="stroke-current" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-              <path 
-                d="M24 6H26C27.1046 6 28 6.89543 28 8V10" 
-                className="stroke-current" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-              {/* Bottom scanning bracket */}
-              <path 
-                d="M12 30H10C8.89543 30 8 29.1046 8 28V26" 
-                className="stroke-current" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-              <path 
-                d="M24 30H26C27.1046 30 28 29.1046 28 28V26" 
-                className="stroke-current" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-              {/* Inner container elements */}
-              <path 
-                d="M12 13H24M12 18H24M12 23H20" 
-                className="stroke-current" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
+          <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl shadow-glow transform hover:scale-105 transition-all duration-300 relative">
+            <div className="absolute inset-0 bg-blue-400 rounded-xl opacity-20 animate-pulse"></div>
+            <svg className="h-8 w-8 text-white filter drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                <animate attributeName="stroke-dasharray" from="0 100" to="100 100" dur="1.5s" fill="freeze" />
+              </path>
             </svg>
-            {/* Pulse effect */}
-            <div className="absolute inset-0 animate-ping-slow opacity-25 bg-blue-400 rounded-lg" style={{ animationDuration: '3s' }}></div>
           </div>
-          <div className="transform transition-transform duration-200 group-hover:scale-105">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-              DockLens
-            </h1>
+          <div>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">DockLens</h1>
             <p className="text-xs text-gray-500">Container Analytics</p>
           </div>
         </Link>
