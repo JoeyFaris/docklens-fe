@@ -33,10 +33,10 @@ export default function DiagnosticsConfirmModal({ container, onClose, onConfirm,
                   <div className="mt-2 text-sm text-blue-700">
                     <p>Would you like to run diagnostics on:</p>
                     <div className="mt-2 p-3 bg-white rounded-lg border border-blue-200">
-                      <div className="font-medium">{container.Names[0].substring(1)}</div>
+                      <div className="font-medium">{container.name}</div>
                       <div className="text-sm text-gray-600 mt-1">
-                        <div>Image: {container.Image}</div>
-                        <div>Status: {container.Status}</div>
+                        <div>Image: {container.image}</div>
+                        <div>Status: {container.status}</div>
                       </div>
                     </div>
                   </div>

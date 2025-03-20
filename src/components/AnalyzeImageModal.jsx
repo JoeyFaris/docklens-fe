@@ -57,13 +57,16 @@ export default function AnalyzeImageModal({ isOpen, onClose, onAnalysisComplete,
     setError(null);
 
     try {
-      const containerData = await dockerApi.getContainers();
+      const response = await dockerApi.getContainers();
+
       
-      if (!containerData || !Array.isArray(containerData)) {
+      // Check if the response has the expected structure with a data property
+      if (!response || !response.success || !response.data || !Array.isArray(response.data)) {
         throw new Error('Invalid container data received');
       }
 
-      setContainers(containerData);
+      // Use the data array from the response
+      setContainers(response.data);
       setHasPermission(true);
       setPermissionStep(false);
       setRetryCount(0); // Reset retry count on success

@@ -9,12 +9,15 @@ export default function Containers() {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [hasPermission, setHasPermission] = useState(false);
   
-  const { data: containers = [], isLoading, error, refetch } = useQuery({
+  const { data: containerResponse = { data: [] }, isLoading, error, refetch } = useQuery({
     queryKey: ['containers'],
     queryFn: () => dockerApi.getContainers(),
     refetchInterval: 5000, // Refresh every 5 seconds
     enabled: hasPermission, // Only start fetching after permission is granted
   });
+
+  // Extract containers from the response data property
+  const containers = containerResponse.data || [];
 
   const handlePermissionGranted = () => {
     setHasPermission(true);
@@ -92,9 +95,9 @@ export default function Containers() {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {containers.map((container) => (
                       <tr
-                        key={container.Id}
+                        key={container.id}
                         className={`${
-                          selectedContainer?.Id === container.Id ? 'bg-primary-50' : ''
+                          selectedContainer?.id === container.id ? 'bg-primary-50' : ''
                         } hover:bg-gray-50 cursor-pointer transition-colors duration-150`}
                         onClick={() => setSelectedContainer(container)}
                       >
@@ -105,42 +108,42 @@ export default function Containers() {
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">
-                                {container.Names[0].replace('/', '')}
+                                {container.name}
                               </div>
-                              <div className="text-sm text-gray-500">{container.Id.slice(0, 12)}</div>
+                              <div className="text-sm text-gray-500">{container.id.slice(0, 12)}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
                             className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                              container.State === 'running'
+                              container.status === 'running'
                                 ? 'bg-green-100 text-green-800'
                                 : 'bg-gray-100 text-gray-800'
                             }`}
                           >
                             <span className={`h-2 w-2 mr-2 rounded-full ${
-                              container.State === 'running' ? 'bg-green-400' : 'bg-gray-400'
+                              container.status === 'running' ? 'bg-green-400' : 'bg-gray-400'
                             }`}></span>
-                            {container.State}
+                            {container.status}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{container.Image}</div>
+                          <div className="text-sm text-gray-900">{container.image}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {container.Ports.map((port, index) => (
+                          {container.ports && container.ports.map((port, index) => (
                             <span key={index} className="px-2 py-1 bg-gray-100 rounded text-xs mr-2">
                               {port.PrivatePort}/{port.Type}
                             </span>
                           ))}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(container.Created * 1000).toLocaleString()}
+                          {new Date(container.created).toLocaleString()}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div className="flex items-center space-x-3 justify-end">
-                            {container.State === 'running' ? (
+                            {container.status === 'running' ? (
                               <button className="text-red-600 hover:text-red-900 transition-colors duration-150">
                                 <StopIcon className="h-5 w-5" />
                               </button>

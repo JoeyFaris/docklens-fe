@@ -139,6 +139,7 @@ export const dockerApi = {
       if (!response.ok) {
         throw new Error(`Failed to get containers: ${response.statusText}`);
       }
+      // Return the entire response object (including success, message, and data properties)
       return await response.json();
     } catch (error) {
       console.error('Error getting containers:', error);

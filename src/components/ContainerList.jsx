@@ -31,28 +31,28 @@ export default function ContainerList({ containers, selectedContainer, onContain
         )}
         {containers.map(container => (
           <div
-            key={container.Id}
+            key={container.id}
             className={`text-sm text-gray-600 bg-white p-3 rounded-lg border transition-colors cursor-pointer ${
-              selectedContainer?.Id === container.Id
+              selectedContainer?.id === container.id
                 ? 'border-blue-500 bg-blue-50'
                 : 'border-gray-200 hover:border-blue-300'
             }`}
             onClick={() => onContainerClick(container)}
           >
             <div className="flex justify-between items-center">
-              <span className="font-medium">{container.Names[0].substring(1)}</span>
+              <span className="font-medium">{container.name}</span>
               <span className={`px-2 py-0.5 rounded text-xs ${
-                container.State === 'running' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
+                container.status === 'running' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
               }`}>
-                {container.State}
+                {container.status}
               </span>
             </div>
             <div className="text-xs text-gray-500 mt-1">
-              <div>Image: {container.Image}</div>
-              <div>Status: {container.Status}</div>
-              {container.Ports.length > 0 && (
+              <div>Image: {container.image}</div>
+              <div>Status: {container.state || container.status}</div>
+              {container.ports && container.ports.length > 0 && (
                 <div>
-                  Ports: {container.Ports.map(p => `${p.PrivatePort}/${p.Type}`).join(', ')}
+                  Ports: {container.ports.map(p => `${p.PrivatePort}/${p.Type}`).join(', ')}
                 </div>
               )}
             </div>
