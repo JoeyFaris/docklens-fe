@@ -24,8 +24,11 @@ export default function Containers() {
 
   const handlePermissionGranted = () => {
     setHasPermission(true);
-    setIsModalOpen(false);
-    refetch(); // Immediately fetch containers after permission is granted
+    // Wait a moment before closing the modal to ensure the permission is processed
+    setTimeout(() => {
+      setIsModalOpen(false);
+      refetch(); // Immediately fetch containers after permission is granted
+    }, 500);
   };
 
   const handleStartContainer = async (containerId, event) => {

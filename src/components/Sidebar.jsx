@@ -28,7 +28,6 @@ export default function Sidebar() {
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: location.pathname === '/dashboard', premium: false },
     { name: 'Images', href: '/images', icon: DocumentDuplicateIcon, current: location.pathname === '/images', premium: false },
-    { name: 'Containers', href: '/containers', icon: CubeIcon, current: location.pathname === '/containers', premium: false },
     { name: 'Premium Features', href: '/premium', icon: SparklesIcon, current: location.pathname === '/premium', premium: false, highlight: true },
     { name: 'Security Scans', href: '/premium', icon: ShieldCheckIcon, current: location.pathname.startsWith('/security-scan'), premium: true },
     { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: location.pathname === '/settings', premium: false },

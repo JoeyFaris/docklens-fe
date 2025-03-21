@@ -52,7 +52,8 @@ export default function Landing() {
 
   const handlePermissionGranted = () => {
     setHasPermission(true);
-    setShowAnalyzeModal(false);
+    // Don't close the modal, let the flow continue to container selection
+    // setShowAnalyzeModal(false);
   };
   
   const handleNotificationSignup = (e) => {
@@ -73,12 +74,67 @@ export default function Landing() {
     }, 600);
   };
 
+  const handleAnalysisComplete = (results) => {
+    // Log the raw results
+    console.log('Dashboard - Raw Analysis Results:', results);
+
+    const transformedData = {
+      stats: [
+        { 
+          title: 'Total Containers', 
+          value: results.containerCount || '0',
+          change: '+0',
+          changeType: 'neutral'
+        },
+        { 
+          title: 'Running Containers',
+          value: results.runningContainers || '0',
+          change: '+0',
+          changeType: 'neutral'
+        },
+        { 
+          title: 'Total Images',
+          value: results.imageCount || '0',
+          change: '+0',
+          changeType: 'neutral'
+        },
+        { 
+          title: 'Optimization Score',
+          value: `${results.optimizationScore || 0}%`,
+          change: '+0%',
+          changeType: 'neutral'
+        },
+      ],
+      layerAnalysis: results.layers.map(layer => ({
+        name: layer.name,
+        size: layer.size,
+        ratio: layer.percentage,
+      })),
+      securityIssues: results.securityScan.vulnerabilities.map(vuln => ({
+        severity: vuln.severity,
+        count: vuln.count,
+        color: vuln.severity === 'High' ? '#ef4444' : 
+               vuln.severity === 'Medium' ? '#f97316' : '#eab308',
+      })),
+      resourceUsage: results.containerStats || mockData.resourceUsage,
+    };
+
+    // Log the transformed data
+    console.log('Dashboard - Transformed Data:', {
+      stats: transformedData.stats,
+      layerAnalysis: transformedData.layerAnalysis,
+      securityIssues: transformedData.securityIssues,
+      resourceUsage: transformedData.resourceUsage
+    });
+
+    setAnalysisData(transformedData);
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white w-screen overflow-x-hidden">
       {/* Hero Section with Background */}
       <div className="relative bg-gradient-to-b from-blue-900 to-gray-900 w-screen">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxMTEiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHYtMXptMC0yaDF2NGgtMXYtNHptLTUgMmg0djFoLTR2LTF6bTAgMmgxdjJoLTF2LTJ6bS03LTNoNHYxaC00di0xem0wIDJoMXY0aC0xdi00em0tNy0xaDR2MWgtNHYtMXptMCAyaDF2NGgtMXYtNHptMzYtMTJoLTR2MWg0di0xem0wIDJoLTF2NGgxdi00em01LTJoLTR2MWg0di0xem0wIDJoLTF2NGgxdi00em0tNy0xaC00djFoNHYtMXptMCAyaC0xdjRoMXYtNHptLTUtMWgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6bS0zNi0yaC00djFoNHYtMXptMCAyaC0xdjRoMXYtNHptLTUtMmgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6bTctMWgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6bTUtMWgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6Ij48L3BhdGg+PC9nPjwvZz48L3N2Zz4=')] mix-blend-soft-light opacity-30"></div>
-        
         <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 relative">
           <header className="flex items-center justify-between mb-16 max-w-7xl mx-auto">
             <div className="flex items-center space-x-4">

@@ -112,7 +112,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      <StatsCards stats={analysisData.stats} />
+      <StatsCards stats={analysisData.stats} />casdcasdc
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <LayerAnalysis 
@@ -126,7 +126,6 @@ export default function Dashboard() {
         <ResourceUsage data={analysisData.resourceUsage} />
         <OptimizationOpportunities />
       </div>
-
       <AnalyzeImageModal
         isOpen={showAnalyzeModal}
         onClose={() => setShowAnalyzeModal(false)}
