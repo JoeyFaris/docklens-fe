@@ -1,6 +1,10 @@
 import React from 'react';
 
 export default function DiagnosticsConfirmModal({ container, onClose, onConfirm, isOpen }) {
+  console.log(container);
+  console.log(isOpen);
+  console.log(onClose);
+  console.log(onConfirm);
   if (!isOpen) return null;
 
   return (

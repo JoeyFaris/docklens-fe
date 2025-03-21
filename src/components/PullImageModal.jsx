@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { dockerApi } from '../api/dockerApi';
+import { imageService } from '../api';
 
 export default function PullImageModal({ isOpen, onClose, onPullComplete }) {
   const [selectedImage, setSelectedImage] = useState('');
@@ -20,7 +20,7 @@ export default function PullImageModal({ isOpen, onClose, onPullComplete }) {
   const fetchLocalImages = async () => {
     setIsLoadingImages(true);
     try {
-      const images = await dockerApi.getLocalImages();
+      const images = await imageService.getLocalImages();
       setLocalImages(images);
     } catch (error) {
       console.error('Failed to fetch local images:', error);
@@ -42,7 +42,7 @@ export default function PullImageModal({ isOpen, onClose, onPullComplete }) {
     });
 
     try {
-      const eventStream = await dockerApi.pullImage(selectedImage);
+      const eventStream = await imageService.pullImage(selectedImage);
       
       for await (const event of eventStream) {
         setStatus(prev => ({

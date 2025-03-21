@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { dockerApi } from '../api/dockerApi';
 import { useQuery } from '@tanstack/react-query';
 import { CheckIcon } from '@heroicons/react/24/outline';
-import AnalyzeImageModal from '../components/AnalyzeImageModal';
+import AnalyzeImageModal from '../components/containers/AnalyzeImageModal';
+import { containerService } from '../api';
 
 export default function Landing() {
   const [showAnalyzeModal, setShowAnalyzeModal] = useState(false);
@@ -15,7 +15,7 @@ export default function Landing() {
   // Fetch container data if permission is granted
   const { data: containerResponse = { data: [] } } = useQuery({
     queryKey: ['landingContainers'],
-    queryFn: () => dockerApi.getContainers(),
+    queryFn: () => containerService.getContainers(),
     enabled: hasPermission, // Only start fetching after permission is granted
   });
   

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { dockerApi } from '../api/dockerApi';
+import { securityService } from '../api';
 
 export default function useSecurityScan() {
   const [scanId, setScanId] = useState(null);
@@ -35,7 +35,7 @@ export default function useSecurityScan() {
       setError(null);
       setProgress('0%');
       
-      const result = await dockerApi.startSecurityScan(imageId);
+      const result = await securityService.startSecurityScan(imageId);
       
       setScanId(result.scanId);
       setScanStatus('scanning');
@@ -57,7 +57,7 @@ export default function useSecurityScan() {
     setIsPolling(true);
     
     try {
-      const statusData = await dockerApi.checkSecurityScanStatus(scanId);
+      const statusData = await securityService.checkSecurityScanStatus(scanId);
       
       // Update progress if available
       if (statusData.progress) {

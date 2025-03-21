@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { dockerApi } from '../api/dockerApi';
+import { securityService } from '../api';
 
 export default function useSecurityScanQuery(options = {}) {
   const { 
@@ -17,7 +17,7 @@ export default function useSecurityScanQuery(options = {}) {
   const startScanMutation = useMutation({
     mutationFn: (imageToScan) => {
       setImageId(imageToScan);
-      return dockerApi.startSecurityScan(imageToScan);
+      return securityService.startSecurityScan(imageToScan);
     },
     onSuccess: (data) => {
       setScanId(data.scanId);
@@ -34,7 +34,7 @@ export default function useSecurityScanQuery(options = {}) {
   // Query for checking scan status
   const scanStatusQuery = useQuery({
     queryKey: ['securityScanStatus', scanId],
-    queryFn: () => dockerApi.checkSecurityScanStatus(scanId),
+    queryFn: () => securityService.checkSecurityScanStatus(scanId),
     enabled: !!scanId, // Only run when scanId is available
     refetchInterval: (data) => {
       // Stop polling when scan is completed or failed

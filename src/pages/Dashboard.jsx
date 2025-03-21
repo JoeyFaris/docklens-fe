@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AnalyzeImageModal from '../components/AnalyzeImageModal';
+import AnalyzeImageModal from '../components/containers/AnalyzeImageModal';
 import StatsCards from '../components/dashboard/StatsCards';
 import LayerAnalysis from '../components/dashboard/LayerAnalysis';
 import SecurityOverview from '../components/dashboard/SecurityOverview';

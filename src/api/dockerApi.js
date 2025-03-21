@@ -139,10 +139,117 @@ export const dockerApi = {
       if (!response.ok) {
         throw new Error(`Failed to get containers: ${response.statusText}`);
       }
-      // Return the entire response object (including success, message, and data properties)
       return await response.json();
     } catch (error) {
       console.error('Error getting containers:', error);
+      throw error;
+    }
+  },
+
+  async getContainerDetails(containerId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers/${encodeURIComponent(containerId)}`);
+      if (!response.ok) {
+        throw new Error(`Failed to get container details: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error getting container details:', error);
+      throw error;
+    }
+  },
+
+  async startContainer(containerId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers/${encodeURIComponent(containerId)}/start`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to start container: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error starting container:', error);
+      throw error;
+    }
+  },
+
+  async stopContainer(containerId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers/${encodeURIComponent(containerId)}/stop`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to stop container: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error stopping container:', error);
+      throw error;
+    }
+  },
+
+  async removeContainer(containerId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers/${encodeURIComponent(containerId)}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to remove container: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error removing container:', error);
+      throw error;
+    }
+  },
+
+  async getContainerStats(containerId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers/${encodeURIComponent(containerId)}/stats`);
+      if (!response.ok) {
+        throw new Error(`Failed to get container stats: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error getting container stats:', error);
+      throw error;
+    }
+  },
+
+  async restartContainer(containerId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers/${encodeURIComponent(containerId)}/restart`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to restart container: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error restarting container:', error);
+      throw error;
+    }
+  },
+
+  async getContainerLogs(containerId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/containers/${encodeURIComponent(containerId)}/logs`);
+      if (!response.ok) {
+        throw new Error(`Failed to get container logs: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error getting container logs:', error);
       throw error;
     }
   },
