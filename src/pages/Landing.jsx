@@ -401,7 +401,7 @@ export default function Landing() {
       />
       
       {/* CSS for animations and fixes */}
-      <style jsx>{`
+      <style>{`
         /* Shadow effects */
         .shadow-blue {
           box-shadow: 0 4px 14px rgba(59, 130, 246, 0.2);
