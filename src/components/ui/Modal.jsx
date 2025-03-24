@@ -23,15 +23,15 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-blue-100/80 flex items-center justify-center p-4 backdrop-blur-sm z-50">
-      <div className={`bg-white rounded-3xl shadow-xl max-w-md w-full border-2 border-blue-200 ${className}`}>
-        <div className="p-8">
-          <header className="flex items-center justify-between mb-8">
-            {title && <h2 className="text-2xl font-bold text-blue-700">{title}</h2>}
+    <div className="fixed inset-0 bg-green-100/80 flex items-center justify-center p-4 backdrop-blur-sm z-50">
+      <div className={`bg-white rounded-3xl shadow-xl max-w-md w-full border-2 border-green-200 ${className}`}>
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-4">
+            {title && <h2 className="text-2xl font-bold text-green-700">{title}</h2>}
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="text-blue-400 hover:text-blue-600 transition-colors"
+                className="text-green-400 hover:text-green-600 transition-colors"
                 aria-label="Close modal"
               >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,7 +39,7 @@ export default function Modal({
                 </svg>
               </button>
             )}
-          </header>
+          </div>
 
           <div className="space-y-6">
             {children}

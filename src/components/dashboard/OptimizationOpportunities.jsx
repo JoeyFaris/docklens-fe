@@ -5,7 +5,7 @@ import chroma from 'chroma-js';
 export default function OptimizationOpportunities() {
   // Generate color gradients for visual appeal
   const forestColorScale = chroma.scale(['#16a34a', '#166534']).mode('lch');
-  const blueColorScale = chroma.scale(['#3b82f6', '#1e40af']).mode('lch');
+  const greenColorScale = chroma.scale(['#22c55e', '#166534']).mode('lch');
   
   const optimizations = [
     {
@@ -25,14 +25,14 @@ export default function OptimizationOpportunities() {
       title: 'Unused Files',
       description: "30MB of files haven't been accessed in 30 days and can be safely removed",
       icon: (
-        <svg className="h-6 w-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+        <svg className="h-6 w-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
         </svg>
       ),
       actionText: 'Clean Files',
       impact: 'Medium Impact',
       savings: '30MB reduction',
-      colorScheme: 'blue'
+      colorScheme: 'green'
     }
   ];
 
@@ -47,14 +47,14 @@ export default function OptimizationOpportunities() {
           title: 'text-forest-800',
           text: 'text-forest-700'
         };
-      case 'blue':
+      case 'green':
         return {
-          bg: 'bg-gradient-to-br from-blue-50 to-blue-100',
-          border: 'border-blue-200',
-          button: 'bg-blue-100 text-blue-700 hover:bg-blue-200',
-          icon: 'text-blue-500',
-          title: 'text-blue-800',
-          text: 'text-blue-700'
+          bg: 'bg-gradient-to-br from-green-50 to-green-100',
+          border: 'border-green-200',
+          button: 'bg-green-100 text-green-700 hover:bg-green-200',
+          icon: 'text-green-500',
+          title: 'text-green-800',
+          text: 'text-green-700'
         };
       default:
         return {

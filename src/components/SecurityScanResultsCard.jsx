@@ -95,7 +95,7 @@ export default function SecurityScanResultsCard({ scanData, className = '', onVi
         <div className="mt-4">
           <button
             onClick={onViewDetails}
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+            className="text-sm text-green-600 hover:text-green-700 font-medium"
           >
             View full details
           </button>

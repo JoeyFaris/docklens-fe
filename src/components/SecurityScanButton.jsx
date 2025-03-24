@@ -34,7 +34,7 @@ export default function SecurityScanButton({
     
     switch (variant) {
       case 'primary':
-        return `${baseClasses} ${sizeClasses} bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 ${className}`;
+        return `${baseClasses} ${sizeClasses} bg-green-600 hover:bg-green-700 text-white focus:ring-green-500 ${className}`;
       case 'secondary':
         return `${baseClasses} ${sizeClasses} bg-gray-100 hover:bg-gray-200 text-gray-700 focus:ring-gray-500 ${className}`;
       case 'outline':
@@ -44,7 +44,7 @@ export default function SecurityScanButton({
       case 'minimal':
         return `${baseClasses} hover:bg-gray-100 text-gray-700 focus:ring-gray-500 ${className}`;
       default:
-        return `${baseClasses} ${sizeClasses} bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 ${className}`;
+        return `${baseClasses} ${sizeClasses} bg-green-600 hover:bg-green-700 text-white focus:ring-green-500 ${className}`;
     }
   };
 

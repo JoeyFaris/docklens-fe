@@ -155,22 +155,22 @@ export default function ContainerStats() {
         <div className="bg-white rounded-lg shadow-soft p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* CPU Usage Card */}
-            <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-xl shadow-sm">
+            <div className="bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl shadow-sm">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-blue-700 text-lg font-medium mb-1">CPU Usage</h3>
-                  <div className="text-3xl font-bold text-blue-800">
+                  <h3 className="text-green-700 text-lg font-medium mb-1">CPU Usage</h3>
+                  <div className="text-3xl font-bold text-green-800">
                     {containerStats ? `${calculateCpuPercentage(containerStats)}%` : 'N/A'}
                   </div>
                 </div>
-                <div className="bg-blue-200 p-2 rounded-full">
-                  <svg className="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-green-200 p-2 rounded-full">
+                  <svg className="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
               </div>
               
-              <div className="mt-4 space-y-2 text-sm text-blue-700">
+              <div className="mt-4 space-y-2 text-sm text-green-700">
                 {containerStats?.cpu_stats && (
                   <>
                     <div className="flex justify-between">

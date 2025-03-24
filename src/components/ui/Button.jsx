@@ -21,7 +21,7 @@ export default function Button({
   ...props
 }) {
   // Base classes
-  const baseClasses = 'rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center justify-center font-medium';
+  const baseClasses = 'rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-green-300 flex items-center justify-center font-medium';
   
   // Size classes
   const sizeClasses = {
@@ -32,8 +32,8 @@ export default function Button({
   
   // Variant classes
   const variantClasses = {
-    primary: 'bg-blue-600 hover:bg-blue-700 text-white',
-    secondary: 'bg-blue-50 hover:bg-blue-100 text-blue-600 border-2 border-blue-200',
+    primary: 'bg-green-600 hover:bg-green-700 text-white',
+    secondary: 'bg-green-50 hover:bg-green-100 text-green-600 border-2 border-green-200',
     outline: 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-300',
     danger: 'bg-red-600 hover:bg-red-700 text-white',
     ghost: 'bg-transparent hover:bg-gray-100 text-gray-600',

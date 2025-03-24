@@ -7,7 +7,7 @@ export default function ContainerList({ containers, selectedContainer, onContain
         <h4 className="font-medium text-gray-700">Current Containers:</h4>
         <button
           onClick={onRefresh}
-          className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1"
+          className="text-green-600 hover:text-green-800 text-sm flex items-center gap-1"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -34,8 +34,8 @@ export default function ContainerList({ containers, selectedContainer, onContain
             key={container.id}
             className={`text-sm text-gray-600 bg-white p-3 rounded-lg border transition-colors cursor-pointer ${
               selectedContainer?.id === container.id
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 hover:border-blue-300'
+                ? 'border-green-500 bg-green-50'
+                : 'border-gray-200 hover:border-green-300'
             }`}
             onClick={() => onContainerClick(container)}
           >

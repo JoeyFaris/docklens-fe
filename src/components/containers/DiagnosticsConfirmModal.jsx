@@ -35,13 +35,13 @@ export default function DiagnosticsConfirmModal({ isOpen, container, onClose, on
       footer={modalFooter}
     >
       <div className="space-y-6">
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-sm">
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200 shadow-sm">
           <div className="flex items-start gap-4">
             <div className="flex-1">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-blue-900 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-green-900 flex items-center gap-2">
                   {formatContainerName(container.name)}
-                  <span className="text-xs font-normal text-blue-600 bg-blue-100/50 px-2 py-0.5 rounded-md">
+                  <span className="text-xs font-normal text-green-600 bg-green-100/50 px-2 py-0.5 rounded-md">
                     {container.id?.slice(0, 12)}
                   </span>
                 </h3>
@@ -62,19 +62,19 @@ export default function DiagnosticsConfirmModal({ isOpen, container, onClose, on
               <dl className="grid gap-y-3 text-sm">
                 <div className="flex items-center">
                   <dt className="w-24 flex-shrink-0 text-gray-500 font-medium">Image</dt>
-                  <dd className="font-mono text-gray-900 bg-white/50 px-3 py-1 rounded-lg truncate border border-blue-100 flex-1">
+                  <dd className="font-mono text-gray-900 bg-white/50 px-3 py-1 rounded-lg truncate border border-green-100 flex-1">
                     {container.image}
                   </dd>
                 </div>
                 <div className="flex items-center">
                   <dt className="w-24 flex-shrink-0 text-gray-500 font-medium">Ports</dt>
-                  <dd className="font-mono text-gray-900 bg-white/50 px-3 py-1 rounded-lg border border-blue-100 flex-1">
+                  <dd className="font-mono text-gray-900 bg-white/50 px-3 py-1 rounded-lg border border-green-100 flex-1">
                     {container.ports?.length ? container.ports.map(port => `${port.PublicPort}:${port.PrivatePort}`).join(', ') : 'None'}
                   </dd>
                 </div>
                 <div className="flex items-center">
                   <dt className="w-24 flex-shrink-0 text-gray-500 font-medium">Created</dt>
-                  <dd className="font-medium text-gray-900 bg-white/50 px-3 py-1 rounded-lg border border-blue-100 flex-1">
+                  <dd className="font-medium text-gray-900 bg-white/50 px-3 py-1 rounded-lg border border-green-100 flex-1">
                     {container.created ? formatDate(container.created) : '-'}
                   </dd>
                 </div>

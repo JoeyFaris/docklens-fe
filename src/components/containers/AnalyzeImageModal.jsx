@@ -121,8 +121,8 @@ export default function AnalyzeImageModal({ isOpen, onClose, onAnalysisComplete,
   const renderPermissionContent = () => (
     <div className="space-y-6">
       <div className="flex items-start gap-4">
-        <div className="bg-blue-100 p-2 rounded-lg">
-          <svg className="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="bg-green-100 p-2 rounded-lg">
+          <svg className="h-6 w-6 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>

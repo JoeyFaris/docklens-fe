@@ -252,7 +252,7 @@ export default function Containers() {
                                 </button>
                               )}
                               <button 
-                                className="text-blue-600 hover:text-blue-900 transition-colors duration-150"
+                                className="text-green-600 hover:text-green-900 transition-colors duration-150"
                                 onClick={(e) => handleRestartContainer(container.id, e)}
                                 disabled={isActionPending}
                                 title="Restart container"
