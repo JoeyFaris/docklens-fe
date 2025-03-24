@@ -4,19 +4,19 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-white text-black;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white rounded-lg shadow-md p-6;
+    @apply bg-white rounded-lg shadow-md p-6 border border-gray-100;
   }
   .btn-primary {
-    @apply bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors;
+    @apply bg-forest-500 text-white px-4 py-2 rounded-md hover:bg-forest-600 transition-colors;
   }
   .btn-secondary {
-    @apply bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors;
+    @apply bg-gray-100 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors;
   }
 }
 
@@ -25,9 +25,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: #000000;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -37,11 +37,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #1b4332;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #15803d;
 }
 
 body {
@@ -64,12 +64,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #1b4332;
+  color: white;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #15803d;
 }
 button:focus,
 button:focus-visible {

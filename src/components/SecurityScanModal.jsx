@@ -64,7 +64,7 @@ export default function SecurityScanModal({ isOpen, onClose, imageId }) {
       case 'critical': return 'text-red-700 bg-red-100';
       case 'high': return 'text-red-600 bg-red-50';
       case 'medium': return 'text-orange-600 bg-orange-50';
-      case 'low': return 'text-yellow-600 bg-yellow-50';
+      case 'low': return 'text-forest-600 bg-forest-50';
       default: return 'text-gray-700 bg-gray-100';
     }
   };
@@ -76,7 +76,7 @@ export default function SecurityScanModal({ isOpen, onClose, imageId }) {
       <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center border-b border-gray-200 px-6 py-4">
           <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-            <ShieldCheckIcon className="h-6 w-6 text-blue-500 mr-2" />
+            <ShieldCheckIcon className="h-6 w-6 text-forest-500 mr-2" />
             Security Scan {imageId && `- ${imageId}`}
           </h2>
           <button
@@ -90,14 +90,14 @@ export default function SecurityScanModal({ isOpen, onClose, imageId }) {
         <div className="p-6">
           {status === 'idle' && (
             <div className="text-center py-8">
-              <ShieldCheckIcon className="h-16 w-16 text-blue-500 mx-auto mb-4" />
+              <ShieldCheckIcon className="h-16 w-16 text-forest-500 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">Ready to Scan</h3>
               <p className="text-gray-600 mb-6">
                 This will scan the image for security vulnerabilities using Trivy.
               </p>
               <button
                 onClick={handleStartScan}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2"
               >
                 Start Security Scan
               </button>
@@ -106,7 +106,7 @@ export default function SecurityScanModal({ isOpen, onClose, imageId }) {
 
           {(status === 'starting' || status === 'scanning') && (
             <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-forest-500 mx-auto mb-4"></div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 {status === 'starting' ? 'Starting Scan...' : 'Scanning...'}
               </h3>
@@ -118,7 +118,7 @@ export default function SecurityScanModal({ isOpen, onClose, imageId }) {
               {status === 'scanning' && progress && (
                 <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 max-w-md mx-auto">
                   <div 
-                    className="bg-blue-600 h-2.5 rounded-full" 
+                    className="bg-forest-500 h-2.5 rounded-full" 
                     style={{ width: progress }}
                   ></div>
                 </div>
@@ -139,7 +139,7 @@ export default function SecurityScanModal({ isOpen, onClose, imageId }) {
               </div>
               <button
                 onClick={handleStartScan}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2"
               >
                 Try Again
               </button>
@@ -236,7 +236,7 @@ export default function SecurityScanModal({ isOpen, onClose, imageId }) {
                 </button>
                 <button
                   onClick={onClose}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2"
                 >
                   Close
                 </button>

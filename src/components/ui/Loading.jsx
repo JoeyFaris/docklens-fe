@@ -11,7 +11,7 @@ import React from 'react';
  */
 export default function Loading({ 
   size = 'md', 
-  color = 'blue-500',
+  color = 'forest-500',
   text,
   className = ''
 }) {

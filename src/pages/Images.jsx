@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { TrashIcon, MagnifyingGlassIcon, ArrowPathIcon, ChartBarIcon } from '@heroicons/react/24/outline';
+import React, { useState } from 'react';
+import { useAppContext } from '../context/AppContext';
+import { TrashIcon, ArrowPathIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import PullImageModal from '../components/PullImageModal';
 import SecurityScanButton from '../components/SecurityScanButton';
 
@@ -30,14 +31,41 @@ const mockImages = [
 ];
 
 export default function Images() {
+  const { images, setImages } = useAppContext();
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [showAnalysis, setShowAnalysis] = useState(false);
   const [showPullModal, setShowPullModal] = useState(false);
-  const [images, setImages] = useState(mockImages);
+  const [newImageName, setNewImageName] = useState('');
+  const [newImageTag, setNewImageTag] = useState('latest');
+
+  const filteredImages = images?.filter(image =>
+    image.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    image.tag.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleDelete = (imageId) => {
+    setImages(images?.filter(img => img.id !== imageId));
+  };
+
+  const handlePull = () => {
+    if (newImageName) {
+      const newImage = {
+        id: Date.now(),
+        name: newImageName,
+        tag: newImageTag,
+        size: '1.2GB',
+        created: new Date().toISOString(),
+        status: 'Downloading...'
+      };
+      setImages([...images, newImage]);
+      setShowPullModal(false);
+      setNewImageName('');
+      setNewImageTag('latest');
+    }
+  };
 
   const handlePullComplete = (newImage) => {
-    // In a real implementation, we would fetch the updated image list
-    // For now, we'll just add a mock entry
     const newImageEntry = {
       id: `sha256:${Math.random().toString(36).substr(2, 9)}`,
       name: newImage.split(':')[0],
@@ -54,162 +82,122 @@ export default function Images() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Docker Images</h1>
-          <p className="mt-1 text-sm text-gray-500">Manage and optimize your Docker images</p>
+    <div className="min-w-0 flex flex-col h-full">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div className="relative w-full sm:w-96">
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-forest-400" />
+          <input
+            type="text"
+            placeholder="Search images..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 border border-forest-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent text-forest-700"
+          />
         </div>
-        <div className="flex space-x-4">
-          <button 
-            className="btn-secondary flex items-center space-x-2"
-            onClick={() => setShowPullModal(true)}
-          >
-            <MagnifyingGlassIcon className="h-5 w-5" />
-            <span>Pull Image</span>
-          </button>
-          <button className="btn-primary flex items-center space-x-2">
-            <ArrowPathIcon className="h-5 w-5" />
-            <span>Build Image</span>
-          </button>
+        <button
+          onClick={() => setShowPullModal(true)}
+          className="w-full sm:w-auto px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 transition-colors flex items-center justify-center gap-2"
+        >
+          <ArrowPathIcon className="h-5 w-5" />
+          Pull New Image
+        </button>
+      </div>
+
+      <div className="min-w-0 flex-1 bg-white rounded-lg shadow-soft">
+        <div className="min-w-0 overflow-x-auto">
+          <table className="w-full table-fixed border-collapse">
+            <thead>
+              <tr className="bg-forest-50">
+                <th className="w-1/4 px-4 py-3 text-left text-xs font-medium text-forest-700 uppercase tracking-wider">Name</th>
+                <th className="w-1/6 px-4 py-3 text-left text-xs font-medium text-forest-700 uppercase tracking-wider">Tag</th>
+                <th className="w-1/6 px-4 py-3 text-left text-xs font-medium text-forest-700 uppercase tracking-wider">Size</th>
+                <th className="w-1/5 px-4 py-3 text-left text-xs font-medium text-forest-700 uppercase tracking-wider">Created</th>
+                <th className="w-1/6 px-4 py-3 text-left text-xs font-medium text-forest-700 uppercase tracking-wider">Status</th>
+                <th className="w-20 px-4 mx-4 py-3 text-right text-xs font-medium text-forest-700 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-forest-100">
+              {filteredImages?.length > 0 ? (
+                filteredImages?.map((image) => (
+                  <tr key={image.id} className="hover:bg-forest-50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-forest-700">{image.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-forest-600">{image.tag}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-forest-600">{image.size}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-forest-600">
+                      {new Date(image.created).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 py-1 text-xs font-medium rounded-full bg-forest-100 text-forest-700">
+                        {image.status || 'Ready'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
+                      <button
+                        onClick={() => handleDelete(image.id)}
+                        className="text-forest-600 hover:text-forest-800 transition-colors"
+                        aria-label="Delete image"
+                      >
+                        <TrashIcon className="h-5 w-5" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="px-6 py-8 text-center text-sm text-forest-500">
+                    No images found. Pull a new image to get started.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <div className="card">
-        <div className="flex flex-col">
-          <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Repository
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Tag
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Size / Layers
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Optimization Score
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Security
-                      </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Created
-                      </th>
-                      <th scope="col" className="relative px-6 py-3">
-                        <span className="sr-only">Actions</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {images.map((image) => (
-                      <tr
-                        key={image.id}
-                        className={`hover:bg-gray-50 cursor-pointer ${
-                          selectedImage?.id === image.id ? 'bg-primary-50' : ''
-                        }`}
-                        onClick={() => setSelectedImage(image)}
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10">
-                              <div className="h-10 w-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                                <img src={`https://www.gravatar.com/avatar/${image.id}?s=40&d=identicon`} alt="" className="h-8 w-8" />
-                              </div>
-                            </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">{image.name}</div>
-                              <div className="text-sm text-gray-500">{image.tag}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 text-xs font-medium bg-gray-100 rounded-full">
-                            {image.tag}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{image.size}</div>
-                          <div className="text-sm text-gray-500">{image.layers} layers</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                              <div
-                                className={`h-full rounded-full ${
-                                  image.optimizationScore >= 80
-                                    ? 'bg-green-500'
-                                    : image.optimizationScore >= 60
-                                    ? 'bg-yellow-500'
-                                    : 'bg-red-500'
-                                }`}
-                                style={{ width: `${image.optimizationScore}%` }}
-                              />
-                            </div>
-                            <span className="ml-2 text-sm text-gray-500">{image.optimizationScore}%</span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            {image.vulnerabilities > 0 ? (
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                {image.vulnerabilities} issues
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                Secure
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {image.created}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <div className="flex items-center justify-end space-x-2">
-                            <SecurityScanButton 
-                              imageId={`${image.name}:${image.tag}`} 
-                              buttonText="Quick Scan"
-                              useModal={true}
-                            />
-                            <SecurityScanButton 
-                              imageId={`${image.name}:${image.tag}`} 
-                              buttonText="Full Scan"
-                              variant="secondary"
-                              useModal={false}
-                            />
-                            <button
-                              onClick={() => {
-                                setSelectedImage(image);
-                                setShowAnalysis(true);
-                              }}
-                              className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
-                            >
-                              <ChartBarIcon className="h-4 w-4 mr-1" />
-                              Analyze
-                            </button>
-                            <button
-                              className="px-3 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors flex items-center"
-                            >
-                              <TrashIcon className="h-4 w-4 mr-1" />
-                              Remove
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+      {/* Pull Image Modal */}
+      {showPullModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h2 className="text-xl font-bold text-forest-700 mb-4">Pull New Image</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-forest-700 mb-1">Image Name</label>
+                <input
+                  type="text"
+                  value={newImageName}
+                  onChange={(e) => setNewImageName(e.target.value)}
+                  className="w-full px-3 py-2 border border-forest-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent text-forest-700"
+                  placeholder="e.g., nginx"
+                />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-forest-700 mb-1">Tag</label>
+                <input
+                  type="text"
+                  value={newImageTag}
+                  onChange={(e) => setNewImageTag(e.target.value)}
+                  className="w-full px-3 py-2 border border-forest-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent text-forest-700"
+                  placeholder="e.g., latest"
+                />
+              </div>
+            </div>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                onClick={() => setShowPullModal(false)}
+                className="px-4 py-2 text-forest-700 hover:text-forest-900 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handlePull}
+                className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 transition-colors"
+              >
+                Pull
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <PullImageModal
         isOpen={showPullModal}

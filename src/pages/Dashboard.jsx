@@ -102,7 +102,7 @@ export default function Dashboard() {
           <p className="mt-1 text-sm text-gray-500">Overview of your Docker environment</p>
         </div>
         <button 
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2 group shadow-sm"
+          className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 transition-colors flex items-center space-x-2 group shadow-sm"
           onClick={() => setShowAnalyzeModal(true)}
         >
           <span>Analyze Environment</span>
@@ -112,7 +112,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      <StatsCards stats={analysisData.stats} />casdcasdc
+      <StatsCards stats={analysisData.stats} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <LayerAnalysis 

@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { containerService, imageService } from '../api';
 
 // Create the context
 const AppContext = createContext();
@@ -13,60 +12,53 @@ export const useAppContext = () => {
   return context;
 };
 
+// Mock data for development
+const mockData = {
+  containers: [
+    {
+      id: '1',
+      name: 'web-app',
+      status: 'running',
+      image: 'nginx:latest',
+      ports: ['80:80'],
+      created: new Date().toISOString(),
+    },
+    {
+      id: '2',
+      name: 'database',
+      status: 'running',
+      image: 'postgres:13',
+      ports: ['5432:5432'],
+      created: new Date().toISOString(),
+    }
+  ],
+  images: [
+    {
+      id: 'nginx:latest',
+      size: '133MB',
+      created: new Date().toISOString(),
+    },
+    {
+      id: 'postgres:13',
+      size: '376MB',
+      created: new Date().toISOString(),
+    }
+  ]
+};
+
 // App Provider component
 export const AppProvider = ({ children }) => {
-  const [dockerConnected, setDockerConnected] = useState(false);
-  const [isCheckingConnection, setIsCheckingConnection] = useState(true);
+  const [dockerConnected, setDockerConnected] = useState(true);
+  const [isCheckingConnection, setIsCheckingConnection] = useState(false);
   const [connectionError, setConnectionError] = useState(null);
-  
-  // Check Docker connection on app start
-  useEffect(() => {
-    const checkDockerConnection = async () => {
-      setIsCheckingConnection(true);
-      setConnectionError(null);
-      
-      try {
-        // Try to fetch containers as a connection test
-        const response = await containerService.getContainers();
-        setDockerConnected(
-          response && response.success && Array.isArray(response.data)
-        );
-      } catch (error) {
-        console.error('Docker connection check failed:', error);
-        setDockerConnected(false);
-        setConnectionError(error.message || 'Failed to connect to Docker');
-      } finally {
-        setIsCheckingConnection(false);
-      }
-    };
-    
-    checkDockerConnection();
-  }, []);
-  
-  // Retry connection
-  const retryConnection = async () => {
-    await checkDockerConnection();
-  };
   
   // Get aggregated app state
   const getAppState = async () => {
-    if (!dockerConnected) return null;
-    
-    try {
-      const [containersResponse, imagesResponse] = await Promise.all([
-        containerService.getContainers(),
-        imageService.getLocalImages()
-      ]);
-      
-      return {
-        containers: containersResponse?.data || [],
-        images: imagesResponse?.data || [],
-        lastUpdated: new Date()
-      };
-    } catch (error) {
-      console.error('Error fetching app state:', error);
-      return null;
-    }
+    return {
+      containers: mockData.containers,
+      images: mockData.images,
+      lastUpdated: new Date()
+    };
   };
   
   // Values to provide in the context
@@ -74,7 +66,6 @@ export const AppProvider = ({ children }) => {
     dockerConnected,
     isCheckingConnection,
     connectionError,
-    retryConnection,
     getAppState
   };
   
