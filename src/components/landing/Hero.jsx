@@ -1,76 +1,123 @@
-import { CheckIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon, ShieldCheckIcon, ChartBarIcon, CpuChipIcon } from '@heroicons/react/24/outline';
 
 export default function Hero({ onConnectClick, animatedElements }) {
   return (
-    <div className="relative bg-gradient-to-b from-gray-50 to-white w-screen min-h-screen flex items-center">
-      {/* Animated background elements */}
+    <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 w-screen min-h-screen flex items-center justify-center text-white">
+      {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxMTEiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHYtMXptMC0yaDF2NGgtMXYtNHptLTUgMmg0djFoLTR2LTF6bTAgMmgxdjJoLTF2LTJ6bS03LTNoNHYxaC00di0xem0wIDJoMXY0aC0xdi00em0tNy0xaDR2MWgtNHYtMXptMCAyaDF2NGgtMXYtNHptMzYtMTJoLTR2MWg0di0xem0wIDJoLTF2NGgxdi00em01LTJoLTR2MWg0di0xem0wIDJoLTF2NGgxdi00em0tNy0xaC00djFoNHYtMXptMCAyaC0xdjRoMXYtNHptLTUtMWgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6bS0zNi0yaC00djFoNHYtMXptMCAyaC0xdjRoMXYtNHptLTUtMmgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6bTctMWgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6bTUtMWgtNHYxaDR2LTF6bTAgMmgtMXY0aDF2LTR6Ij48L3BhdGg+PC9nPjwvZz48L3N2Zz4=')] mix-blend-soft-light opacity-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-blue-500/5 animate-gradient"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.2),transparent_40%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.2),transparent_40%)]"></div>
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
       </div>
-
-      {/* Floating elements */}
+      
+      {/* Animated particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl animate-float-delayed"></div>
+        {[...Array(20)].map((_, i) => (
+          <div 
+            key={i}
+            className="absolute rounded-full bg-white/5"
+            style={{
+              width: `${Math.random() * 6 + 2}px`,
+              height: `${Math.random() * 6 + 2}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `float ${Math.random() * 10 + 10}s linear infinite`
+            }}
+          ></div>
+        ))}
       </div>
 
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-24 relative w-full">
-        <header className="flex items-center justify-between mb-12 max-w-7xl mx-auto">
-          <div className="flex items-center space-x-4">
-            <div className="p-3 bg-emerald-600 rounded-lg">
-              <svg className="h-8 w-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-              </svg>
+      <div className="container mx-auto px-4 py-16 relative z-10 flex flex-col lg:flex-row items-center gap-12">
+        {/* Left content */}
+        <div className={`lg:w-1/2 ${animatedElements.hero ? 'animate-fade-in-up' : 'opacity-0'}`}>
+          <div className="flex items-center mb-6">
+            <div className="p-2 bg-emerald-500/20 rounded-lg mr-3">
+              <CpuChipIcon className="h-6 w-6 text-emerald-400" />
             </div>
-            <div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">DockLens</h1>
-              <p className="text-gray-600 text-sm font-medium tracking-wide">Container Analytics</p>
-            </div>
+            <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-400">
+              DockLens
+            </h1>
           </div>
-          <a
-            href="/dashboard"
-            className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-medium transition-all duration-300 shadow-green hover:shadow-green-lg transform hover:translate-y-[-2px] text-white flex items-center group"
-          >
-            Dashboard
-            <svg className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </a>
-        </header>
-
-        <div className={`max-w-7xl mx-auto ${animatedElements.hero ? 'animate-fade-in-up' : 'opacity-0'}`}>
-          <div className="relative">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-blue-600">
-              Visualize your Docker environment like never before
-            </h2>
-          </div>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl">
-            DockLens is the best way to analyze, monitor, and optimize your Docker containers with powerful visualizations and intelligent insights.
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            Intelligent <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-400">Docker</span> monitoring & optimization
+          </h2>
+          
+          <p className="text-lg text-slate-300 mb-8 max-w-xl">
+            Get real-time insights, powerful visualizations, and automated recommendations to optimize your container environment.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 mb-8">
-            <button
-              onClick={onConnectClick}
-              className="group px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 rounded-lg font-medium text-lg transition-all duration-300 shadow-green hover:shadow-green-lg transform hover:translate-y-[-2px] text-white flex items-center justify-center relative overflow-hidden"
-            >
-              <span className="relative z-10">Connect to Docker</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
-              <svg className="ml-2 h-5 w-5 relative z-10 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </button>
+          <div className="space-y-4 mb-8">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 p-1 bg-emerald-500/20 rounded-full mr-3">
+                <ShieldCheckIcon className="h-5 w-5 text-emerald-400" />
+              </div>
+              <p className="text-slate-300">100% local processing - your container data never leaves your system</p>
+            </div>
+            <div className="flex items-start">
+              <div className="flex-shrink-0 p-1 bg-emerald-500/20 rounded-full mr-3">
+                <ChartBarIcon className="h-5 w-5 text-emerald-400" />
+              </div>
+              <p className="text-slate-300">Advanced analytics to identify performance bottlenecks</p>
+            </div>
           </div>
           
-          <div className="flex items-center space-x-2 text-sm text-gray-600 max-w-2xl">
-            <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>All data is processed locally. We don't store any information about your containers.</span>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              onClick={onConnectClick}
+              className="group px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 rounded-lg font-medium transition-all duration-300 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 text-white flex items-center justify-center"
+            >
+              Connect to Docker
+              <ArrowRightIcon className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
+            </button>
+            
+            <a
+              href="/dashboard"
+              className="px-6 py-3 bg-slate-700/50 hover:bg-slate-700 border border-slate-600 rounded-lg font-medium transition-all duration-300 text-white flex items-center justify-center"
+            >
+              View Dashboard
+            </a>
+          </div>
+        </div>
+        
+        {/* Right content - illustration */}
+        <div className={`lg:w-1/2 ${animatedElements.hero ? 'animate-fade-in-up animate-delay-300' : 'opacity-0'}`}>
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 rounded-xl blur-xl"></div>
+            <div className="relative bg-slate-800/80 border border-slate-700 rounded-xl p-6 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                </div>
+                <div className="text-xs text-slate-400">DockLens Terminal</div>
+              </div>
+              
+              <div className="space-y-2 font-mono text-sm">
+                <div className="text-emerald-400">$ docklens analyze</div>
+                <div className="text-slate-300">Scanning container environment...</div>
+                <div className="text-slate-300">Found 8 active containers</div>
+                <div className="flex items-center">
+                  <div className="w-4 h-4 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin mr-2"></div>
+                  <span className="text-emerald-400">Analyzing performance metrics</span>
+                </div>
+                <div className="h-32 bg-slate-700/50 rounded-md flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-emerald-400 mb-2">Container Visualization</div>
+                    <div className="flex justify-center space-x-2">
+                      {[...Array(4)].map((_, i) => (
+                        <div key={i} className="w-8 h-12 bg-emerald-500/20 border border-emerald-500/30 rounded-sm"></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-slate-300">Optimization recommendations ready</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}
