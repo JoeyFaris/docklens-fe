@@ -76,7 +76,7 @@ export default function SecurityScan() {
       {isLoading && (
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex flex-col items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mb-4"></div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
               {isStarting ? 'Starting Security Scan...' : 'Scanning...'}
             </h3>

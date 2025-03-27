@@ -3,13 +3,13 @@ export default function Settings() {
     <div className="min-w-0 flex flex-col h-full">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-gray-900">Settings</h1>
-        <button className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 transition-colors">
+        <button className="group px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300 shadow-green-lg hover:shadow-glow border-2 border-green-500">
           Save Changes
         </button>
       </div>
 
       <div className="min-w-0 flex-1 grid grid-cols-1 gap-6">
-        <div className="min-w-0 bg-white rounded-lg shadow-soft p-6">
+        <div className="min-w-0 bg-white rounded-lg shadow-green-lg border-2 border-green-500 p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Docker Configuration</h2>
           <div className="space-y-4">
             <div>
@@ -20,7 +20,7 @@ export default function Settings() {
                 type="text"
                 name="docker-host"
                 id="docker-host"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-forest-500 focus:border-forest-500 sm:text-sm"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 defaultValue="unix:///var/run/docker.sock"
               />
             </div>
@@ -32,14 +32,14 @@ export default function Settings() {
                 type="text"
                 name="api-version"
                 id="api-version"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-forest-500 focus:border-forest-500 sm:text-sm"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 defaultValue="v1.41"
               />
             </div>
           </div>
         </div>
 
-        <div className="min-w-0 bg-white rounded-lg shadow-soft p-6">
+        <div className="min-w-0 bg-white rounded-lg shadow-green-lg border-2 border-green-500 p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Interface Settings</h2>
           <div className="space-y-4">
             <div>
@@ -50,7 +50,7 @@ export default function Settings() {
                 type="number"
                 name="refresh-interval"
                 id="refresh-interval"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-forest-500 focus:border-forest-500 sm:text-sm"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 defaultValue="30"
               />
             </div>
@@ -59,7 +59,7 @@ export default function Settings() {
                 id="dark-mode"
                 name="dark-mode"
                 type="checkbox"
-                className="h-4 w-4 text-forest-600 focus:ring-forest-500 border-gray-300 rounded"
+                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
               />
               <label htmlFor="dark-mode" className="ml-2 block text-sm text-gray-900">
                 Enable Dark Mode
@@ -68,7 +68,7 @@ export default function Settings() {
           </div>
         </div>
 
-        <div className="min-w-0 bg-white rounded-lg shadow-soft p-6">
+        <div className="min-w-0 bg-white rounded-lg shadow-green-lg border-2 border-green-500 p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Notifications</h2>
           <div className="space-y-4">
             <div className="flex items-center">
@@ -76,7 +76,7 @@ export default function Settings() {
                 id="container-notifications"
                 name="container-notifications"
                 type="checkbox"
-                className="h-4 w-4 text-forest-600 focus:ring-forest-500 border-gray-300 rounded"
+                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                 defaultChecked
               />
               <label htmlFor="container-notifications" className="ml-2 block text-sm text-gray-900">
@@ -88,7 +88,7 @@ export default function Settings() {
                 id="resource-notifications"
                 name="resource-notifications"
                 type="checkbox"
-                className="h-4 w-4 text-forest-600 focus:ring-forest-500 border-gray-300 rounded"
+                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                 defaultChecked
               />
               <label htmlFor="resource-notifications" className="ml-2 block text-sm text-gray-900">

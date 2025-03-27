@@ -60,10 +60,10 @@ export default function SecurityOverview({ issues = [], lastScanTime, imageId })
   const totalIssues = issues.reduce((sum, issue) => sum + issue.count, 0);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-soft border border-gray-100 hover:shadow-md transition-all duration-300">
+    <div className="bg-white p-6 rounded-lg shadow-soft border-2 border-green-500 hover:shadow-md transition-all duration-300">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
-          <ShieldCheckIcon className="w-6 h-6 text-forest-500" />
+          <ShieldCheckIcon className="w-6 h-6 text-green-500" />
           <h2 className="text-lg font-semibold text-gray-900">Security Overview</h2>
         </div>
         <div className="flex items-center space-x-2 px-3 py-1 bg-gray-50 rounded-full">
@@ -84,8 +84,8 @@ export default function SecurityOverview({ issues = [], lastScanTime, imageId })
           {/* Summary bar */}
           <div className="flex items-center justify-between mb-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-forest-100 flex items-center justify-center">
-                <ShieldCheckIcon className="w-5 h-5 text-forest-600" />
+              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                <ShieldCheckIcon className="w-5 h-5 text-green-600" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total Vulnerabilities</p>
@@ -94,7 +94,7 @@ export default function SecurityOverview({ issues = [], lastScanTime, imageId })
             </div>
             <button
               onClick={openScanModal}
-              className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 transition-colors text-sm font-medium shadow-sm flex items-center group"
+              className="group px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300 shadow-green-lg hover:shadow-glow text-sm font-medium flex items-center border-2 border-green-500"
             >
               Run New Scan
               <ArrowRightIcon className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
@@ -142,7 +142,7 @@ export default function SecurityOverview({ issues = [], lastScanTime, imageId })
             
           <button
             onClick={openScanModal}
-            className="w-full mt-2 flex items-center justify-center py-3 bg-forest-50 text-forest-600 rounded-lg hover:bg-forest-100 transition-colors text-sm font-medium group border border-forest-100"
+            className="w-full mt-2 flex items-center justify-center py-3 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium group border border-green-100"
           >
             View Detailed Security Report
             <ArrowRightIcon className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
@@ -150,14 +150,14 @@ export default function SecurityOverview({ issues = [], lastScanTime, imageId })
         </>
       ) : (
         <div className="text-center py-10 bg-gradient-to-b from-gray-50 to-white rounded-lg border border-gray-100">
-          <div className="bg-forest-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
-            <ShieldCheckIcon className="w-10 h-10 text-forest-400" />
+          <div className="bg-green-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+            <ShieldCheckIcon className="w-10 h-10 text-green-400" />
           </div>
           <h3 className="text-lg font-medium text-gray-800 mb-2">Your Environment is Secure</h3>
           <p className="text-gray-600 mb-6 max-w-md mx-auto">No security scans have been run yet. Run your first scan to identify potential vulnerabilities.</p>
           <button
             onClick={openScanModal}
-            className="px-6 py-3 bg-forest-500 text-white rounded-lg hover:bg-forest-600 focus:outline-none focus:ring-2 focus:ring-forest-300 transition-colors text-sm font-medium shadow-md group"
+            className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300 shadow-green-lg hover:shadow-glow text-sm font-medium border-2 border-green-500 group"
           >
             <span className="flex items-center">
               Run Security Scan

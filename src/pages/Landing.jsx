@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import emailjs from '@emailjs/browser';
 import AnalyzeImageModal from '../components/containers/AnalyzeImageModal';
 import { containerService } from '../api';
 import Hero from '../components/landing/Hero';
 import Features from '../components/landing/Features';
 import Pricing from '../components/landing/Pricing';
 import FooterCTA from '../components/landing/FooterCTA';
+import Header from '../components/landing/Header';
 import { landingStyles } from '../components/landing/styles';
+
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
+const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 
 export default function Landing() {
   const [showAnalyzeModal, setShowAnalyzeModal] = useState(false);
@@ -14,6 +21,7 @@ export default function Landing() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [animatedElements, setAnimatedElements] = useState({});
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
@@ -70,34 +78,56 @@ export default function Landing() {
     setHasPermission(true);
   };
   
-  const handleNotificationSignup = (e) => {
+  const handleNotificationSignup = async (e) => {
     e.preventDefault();
-    if (!email || !email.includes('@')) return;
+    if (!email || !email.includes('@')) {
+      setSubmitError('Please enter a valid email address');
+      return;
+    }
     
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setSubmitError('');
+
+    try {
+      await emailjs.send(
+        serviceId, // Your Gmail service ID
+        templateId, // You'll need to create a template and add its ID here
+        {
+          to_email: 'joeyfaris12@gmail.com',
+          from_email: email,
+        }
+      );
+
       setSubmitSuccess(true);
       setEmail('');
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 3000);
-    }, 600);
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitError('Failed to send email. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-white text-gray-900 w-screen overflow-x-hidden">
-      <Hero onConnectClick={() => setShowAnalyzeModal(true)} animatedElements={animatedElements} />
-      <Features />
-      <Pricing 
-        onConnectClick={() => setShowAnalyzeModal(true)}
-        email={email}
-        setEmail={setEmail}
-        isSubmitting={isSubmitting}
-        submitSuccess={submitSuccess}
-        handleNotificationSignup={handleNotificationSignup}
-      />
-      <FooterCTA onConnectClick={() => setShowAnalyzeModal(true)} />
+      <Header />
+      <div className="pt-16">
+        <Hero onConnectClick={() => setShowAnalyzeModal(true)} animatedElements={animatedElements} />
+        <Features />
+        <Pricing 
+          onConnectClick={() => setShowAnalyzeModal(true)}
+          email={email}
+          setEmail={setEmail}
+          isSubmitting={isSubmitting}
+          submitSuccess={submitSuccess}
+          submitError={submitError}
+          handleNotificationSignup={handleNotificationSignup}
+        />
+        <FooterCTA onConnectClick={() => setShowAnalyzeModal(true)} />
+      </div>
 
       {/* Modal */}
       <AnalyzeImageModal

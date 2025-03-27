@@ -4,7 +4,7 @@ export default function StatsCards({ stats }) {
   const getChangeTypeStyles = (changeType) => {
     switch(changeType) {
       case 'increase':
-        return 'bg-green-50 text-forest-600';
+        return 'bg-green-50 text-green-600';
       case 'decrease':
         return 'bg-red-50 text-red-600';
       default:
@@ -17,7 +17,7 @@ export default function StatsCards({ stats }) {
       {stats.map((stat) => (
         <div 
           key={stat.title} 
-          className="bg-white rounded-xl shadow-soft p-5 hover:shadow-md transition-all duration-300 border border-gray-100"
+          className="bg-white rounded-xl shadow-green-lg p-5 hover:shadow-glow transition-all duration-300 border-2 border-green-500"
         >
           <h3 className="text-sm font-semibold text-gray-700 truncate">{stat.title}</h3>
           

@@ -16,10 +16,10 @@ export default function ResourceUsage({ data = [] }) {
     { name: 'postgres:13', cpu: 55, memory: 65, network: 28 },
   ];
 
-  // Generate color gradients
-  const cpuColorScale = chroma.scale(['#16a34a', '#166534']).mode('lch');
-  const memoryColorScale = chroma.scale(['#3b82f6', '#1e40af']).mode('lch');
-  const networkColorScale = chroma.scale(['#8b5cf6', '#4c1d95']).mode('lch');
+  // Generate distinct color scales for each metric
+  const cpuColorScale = chroma.scale(['#3b82f6', '#1d4ed8']).mode('lch'); // Blue
+  const memoryColorScale = chroma.scale(['#8b5cf6', '#6d28d9']).mode('lch'); // Purple
+  const networkColorScale = chroma.scale(['#10b981', '#059669']).mode('lch'); // Green
 
   const chartData = {
     labels: containerData.map(item => item.name),
@@ -119,7 +119,7 @@ export default function ResourceUsage({ data = [] }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-soft">
+    <div className="bg-white p-6 rounded-lg shadow-green-lg border-2 border-green-500">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">Container Resource Usage</h3>
       </div>
@@ -133,13 +133,13 @@ export default function ResourceUsage({ data = [] }) {
       </div>
       
       <div className="mt-4 grid grid-cols-3 gap-2 text-xs text-gray-600">
-        <div className="p-2 bg-gray-50 rounded">
+        <div className="p-2 bg-green-50 rounded">
           <span className="font-medium">CPU Usage:</span> Container processing power consumption
         </div>
-        <div className="p-2 bg-gray-50 rounded">
+        <div className="p-2 bg-green-50 rounded">
           <span className="font-medium">Memory Usage:</span> RAM allocation and consumption
         </div>
-        <div className="p-2 bg-gray-50 rounded">
+        <div className="p-2 bg-green-50 rounded">
           <span className="font-medium">Network I/O:</span> Data transfer rates
         </div>
       </div>

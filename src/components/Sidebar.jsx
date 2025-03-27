@@ -15,13 +15,13 @@ export default function Sidebar() {
   const getLinkClasses = (path) => {
     const baseClasses = "flex items-center px-4 py-3 rounded-xl transition-all duration-200 w-full group hover:shadow-soft";
     return location.pathname === path
-      ? `${baseClasses} bg-gradient-to-r from-forest-500 to-forest-600 text-white shadow-soft`
+      ? `${baseClasses} bg-gradient-to-r from-green-600 to-green-700 text-white shadow-soft`
       : `${baseClasses} text-gray-600 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100`;
   };
 
   const getIconClasses = (isActive) => {
     return `h-5 w-5 mr-3 transition-transform duration-200 group-hover:scale-110 ${
-      isActive ? 'text-white' : 'text-gray-400 group-hover:text-forest-500'
+      isActive ? 'text-white' : 'text-gray-400 group-hover:text-green-500'
     }`;
   };
 
@@ -36,8 +36,8 @@ export default function Sidebar() {
     <div className="flex flex-col w-64 bg-white border-r border-gray-200 min-h-screen shadow-xl">
       <div className="p-6 border-b border-gray-200 bg-gradient-to-b from-white to-gray-50">
         <Link to="/" className="flex items-center space-x-3 group">
-          <div className="p-3 bg-gradient-to-br from-forest-500 to-forest-700 rounded-xl shadow-glow transform hover:scale-105 transition-all duration-300 relative">
-            <div className="absolute inset-0 bg-forest-400 rounded-xl opacity-20 animate-pulse"></div>
+          <div className="p-3 bg-gradient-to-br from-green-600 to-green-700 rounded-xl shadow-glow transform hover:scale-105 transition-all duration-300 relative">
+            <div className="absolute inset-0 bg-green-400 rounded-xl opacity-20 animate-pulse"></div>
             <svg className="h-8 w-8 text-white filter drop-shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
                 <animate attributeName="stroke-dasharray" from="0 100" to="100 100" dur="1.5s" fill="freeze" />
@@ -61,20 +61,20 @@ export default function Sidebar() {
               <item.icon className={getIconClasses(item.current)} />
               <span className="flex-1">{item.name}</span>
               {item.premium && (
-                <span className="ml-2 px-1.5 py-0.5 text-xs font-medium rounded bg-forest-100 text-forest-800">
+                <span className="ml-2 px-1.5 py-0.5 text-xs font-medium rounded bg-green-100 text-green-800">
                   Premium
                 </span>
               )}
               {item.highlight && (
-                <span className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-100 to-forest-50 opacity-50"></span>
+                <span className="absolute inset-0 -z-10 bg-gradient-to-r from-green-100 to-green-50 opacity-50"></span>
               )}
             </Link>
           ))}
         </div>
       </nav>
       <div className="p-4 border-t border-gray-200 bg-gradient-to-t from-gray-50 to-white">
-        <div className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gradient-to-r from-forest-50 to-forest-100 shadow-soft">
-          <div className="w-2 h-2 rounded-full bg-forest-400 animate-pulse"></div>
+        <div className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gradient-to-r from-green-50 to-green-100 shadow-soft">
+          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
           <span className="text-sm text-gray-600">System Online</span>
         </div>
       </div>

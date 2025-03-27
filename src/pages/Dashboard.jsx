@@ -102,7 +102,7 @@ export default function Dashboard() {
           <p className="mt-1 text-sm text-gray-500">Overview of your Docker environment</p>
         </div>
         <button 
-          className="px-4 py-2 bg-forest-500 text-white rounded-lg hover:bg-forest-600 transition-colors flex items-center space-x-2 group shadow-sm"
+          className="group px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-sm transition-all duration-300 shadow-green-lg hover:shadow-glow text-white flex items-center space-x-2 border-2 border-green-500"
           onClick={() => setShowAnalyzeModal(true)}
         >
           <span>Analyze Environment</span>
