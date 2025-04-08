@@ -112,9 +112,9 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 w-screen overflow-x-hidden">
+    <div className="min-h-screen bg-gray-900 text-white w-screen overflow-x-hidden">
       <Header />
-      <div className="pt-16">
+      <main>
         <Hero onConnectClick={() => setShowAnalyzeModal(true)} animatedElements={animatedElements} />
         <Features />
         <Pricing 
@@ -127,7 +127,7 @@ export default function Landing() {
           handleNotificationSignup={handleNotificationSignup}
         />
         <FooterCTA onConnectClick={() => setShowAnalyzeModal(true)} />
-      </div>
+      </main>
 
       {/* Modal */}
       <AnalyzeImageModal
