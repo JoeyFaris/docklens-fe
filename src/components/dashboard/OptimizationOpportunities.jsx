@@ -69,7 +69,7 @@ export default function OptimizationOpportunities() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-soft border-2 border-green-500 hover:shadow-md transition-all duration-300">
+    <div className="bg-white p-6 rounded-lg shadow-soft transition-all duration-300">
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-lg font-semibold text-gray-900 mr-3">Optimization Opportunities</h2>
       </div>

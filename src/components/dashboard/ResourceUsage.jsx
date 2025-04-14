@@ -119,7 +119,7 @@ export default function ResourceUsage({ data = [] }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-green-lg border-2 border-green-500">
+    <div className="bg-white rounded-xl shadow-soft p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">Container Resource Usage</h3>
       </div>

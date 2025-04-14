@@ -95,11 +95,12 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      <div className="flex items-center justify-between">
+    <div className="space-y-8 animate-fadeIn">
+      {/* Header Section */}
+      <div className="flex items-center justify-between bg-white p-6 rounded-xl shadow-soft">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
-          <p className="mt-1 text-sm text-gray-500">Overview of your Docker environment</p>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="mt-2 text-sm text-gray-500">Overview of your Docker environment</p>
         </div>
         <button 
           className="group px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-bold text-sm transition-all duration-300 shadow-green-lg hover:shadow-glow text-white flex items-center space-x-2 border-2 border-green-500"
@@ -112,20 +113,24 @@ export default function Dashboard() {
         </button>
       </div>
 
+      {/* Stats Cards */}
       <StatsCards stats={analysisData.stats} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <LayerAnalysis 
-          data={analysisData.layerAnalysis} 
-          onAnalyze={() => setShowAnalyzeModal(true)} 
-        />
-        <SecurityOverview issues={analysisData.securityIssues} />
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-8">
+          <LayerAnalysis 
+            data={analysisData.layerAnalysis} 
+            onAnalyze={() => setShowAnalyzeModal(true)} 
+          />
+          <ResourceUsage data={analysisData.resourceUsage} />
+        </div>
+        <div className="space-y-8">
+          <SecurityOverview issues={analysisData.securityIssues} />
+          <OptimizationOpportunities />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ResourceUsage data={analysisData.resourceUsage} />
-        <OptimizationOpportunities />
-      </div>
       <AnalyzeImageModal
         isOpen={showAnalyzeModal}
         onClose={() => setShowAnalyzeModal(false)}

@@ -3,13 +3,13 @@ export default function Settings() {
     <div className="min-w-0 flex flex-col h-full">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-gray-900">Settings</h1>
-        <button className="group px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300 shadow-green-lg hover:shadow-glow border-2 border-green-500">
+        <button className="group px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-300 shadow-green-lg hover:shadow-glow">
           Save Changes
         </button>
       </div>
 
       <div className="min-w-0 flex-1 grid grid-cols-1 gap-6">
-        <div className="min-w-0 bg-white rounded-lg shadow-green-lg border-2 border-green-500 p-6">
+        <div className="min-w-0 bg-white rounded-lg shadow-green-lg p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Docker Configuration</h2>
           <div className="space-y-4">
             <div>
@@ -39,7 +39,7 @@ export default function Settings() {
           </div>
         </div>
 
-        <div className="min-w-0 bg-white rounded-lg shadow-green-lg border-2 border-green-500 p-6">
+        <div className="min-w-0 bg-white rounded-lg shadow-green-lg p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Interface Settings</h2>
           <div className="space-y-4">
             <div>
@@ -68,7 +68,7 @@ export default function Settings() {
           </div>
         </div>
 
-        <div className="min-w-0 bg-white rounded-lg shadow-green-lg border-2 border-green-500 p-6">
+        <div className="min-w-0 bg-white rounded-lg shadow-green-lg p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Notifications</h2>
           <div className="space-y-4">
             <div className="flex items-center">

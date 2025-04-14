@@ -60,7 +60,7 @@ export default function SecurityOverview({ issues = [], lastScanTime, imageId })
   const totalIssues = issues.reduce((sum, issue) => sum + issue.count, 0);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-soft border-2 border-green-500 hover:shadow-md transition-all duration-300">
+    <div className="bg-white p-6 rounded-xl shadow-soft">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <ShieldCheckIcon className="w-6 h-6 text-green-500" />

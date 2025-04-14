@@ -66,7 +66,7 @@ export default function LayerAnalysis({ data = [], onAnalyze }) {
   };
 
   return (
-    <div className="min-w-0 bg-white rounded-lg shadow-green-lg p-6 border-2 border-green-500">
+    <div className="min-w-0 bg-white rounded-xl shadow-soft p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-medium text-gray-900">Layer Analysis</h2>
         <button 
@@ -81,7 +81,7 @@ export default function LayerAnalysis({ data = [], onAnalyze }) {
       </div>
       
       {chartData.length > 0 && (
-        <div className="mt-6 border-t border-green-200 pt-4">
+        <div className="mt-6 border-t border-gray-100 pt-4">
           <h4 className="text-sm font-medium text-gray-700 mb-3">Layer Details</h4>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
