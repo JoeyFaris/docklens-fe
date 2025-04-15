@@ -34,8 +34,11 @@ export default function Pricing({ onConnectClick }) {
         serviceId,
         templateId,
         {
+          to_name: 'Joey',
           to_email: 'joeyfaris12@gmail.com',
+          from_name: 'DockLens User',
           from_email: email,
+          message: `New early access signup for DockLens Pro from: ${email}`
         }
       );
 
