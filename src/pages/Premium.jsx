@@ -1,8 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { WrenchScrewdriverIcon, BuildingLibraryIcon, ShieldCheckIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import emailjs from '@emailjs/browser';
+
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
+const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 
 export default function Premium() {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const handleNotificationSignup = async (e) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) {
+      setSubmitError('Please enter a valid email address');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      console.log('Sending email with:', {
+        serviceId,
+        templateId,
+        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      });
+
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          to_email: 'joeyfaris12@gmail.com',
+          from_email: email,
+        }
+      );
+
+      console.log('Email sent successfully:', response);
+      setSubmitSuccess(true);
+      setEmail('');
+      setTimeout(() => {
+        setSubmitSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Detailed email error:', {
+        error,
+        message: error.message,
+        status: error.status,
+        text: error.text
+      });
+      setSubmitError('Failed to send email. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fadeIn">
       <div className="flex items-center justify-between">
@@ -191,16 +247,37 @@ export default function Premium() {
             <p className="text-gray-600 text-sm">Be the first to know when our premium features are available.</p>
           </div>
           <div className="w-full md:w-auto">
-            <div className="flex">
+            <form onSubmit={handleNotificationSignup} className="flex">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="w-full md:w-64 px-3 py-2 rounded-l-lg text-gray-900 outline-none border border-gray-300 text-sm"
+                className={`w-full md:w-64 px-3 py-2 rounded-l-lg text-gray-900 outline-none border ${
+                  submitError ? 'border-red-500' : 'border-gray-300'
+                } text-sm`}
+                required
               />
-              <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg transition-colors font-medium text-sm text-white">
-                Notify Me
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className={`bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg transition-colors font-medium text-sm text-white ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+              >
+                {isSubmitting ? 'Sending...' : 'Notify Me'}
               </button>
-            </div>
+            </form>
+            {submitSuccess && (
+              <div className="mt-2 text-sm text-green-600">
+                You're on the list! We'll be in touch soon.
+              </div>
+            )}
+            {submitError && (
+              <div className="mt-2 text-sm text-red-600">
+                {submitError}
+              </div>
+            )}
           </div>
         </div>
       </div>

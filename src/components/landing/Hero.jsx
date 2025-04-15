@@ -34,7 +34,7 @@ export default function Hero({ onConnectClick, animatedElements }) {
           
           
           {/* Terminal illustration */}
-          <div className={`${animatedElements.hero ? 'animate-fade-in-up animate-delay-300' : 'opacity-0'}`}>
+          <div className={`${animatedElements.hero ? 'animate-fade-in-up animate-delay-300' : 'opacity-0'} max-w-2xl`}>
             <div className="relative bg-[#1e2c4c]/60 backdrop-blur-sm border border-white/10 rounded-xl p-4 py-5 shadow-lg hover:shadow-green-500/10 transition-all duration-300 hover:border-green-500/30 group">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex space-x-2">

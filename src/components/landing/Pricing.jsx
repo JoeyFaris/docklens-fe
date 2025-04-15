@@ -1,6 +1,63 @@
 import { CheckIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 
-export default function Pricing({ onConnectClick, email, setEmail, isSubmitting, submitSuccess, submitError, handleNotificationSignup }) {
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
+const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+
+export default function Pricing({ onConnectClick }) {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const handleNotificationSignup = async (e) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) {
+      setSubmitError('Please enter a valid email address');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      console.log('Sending email with:', {
+        serviceId,
+        templateId,
+        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      });
+
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          to_email: 'joeyfaris12@gmail.com',
+          from_email: email,
+        }
+      );
+
+      console.log('Email sent successfully:', response);
+      setSubmitSuccess(true);
+      setEmail('');
+      setTimeout(() => {
+        setSubmitSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Detailed email error:', {
+        error,
+        message: error.message,
+        status: error.status,
+        text: error.text
+      });
+      setSubmitError('Failed to send email. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="py-16 bg-gray-900 w-screen relative overflow-hidden">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl relative">
