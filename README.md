@@ -1,4 +1,4 @@
-# DocKLens Frontend
+# DockLens Frontend
 
 DocKLens is a modern web application for monitoring and managing Docker containers. This application provides a user-friendly interface for viewing container status, analyzing images, and performing security scans.
 
